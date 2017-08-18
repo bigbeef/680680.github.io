@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="1.Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
+<meta name="description" content="Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
 <meta name="keywords" content="spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-session使用教程(一)：redis共享session">
 <meta property="og:url" content="http://cppba.com/2016/07/09/spring-session使用教程(一)：redis共享session/index.html">
 <meta property="og:site_name" content="大黄蜂的独立博客">
-<meta property="og:description" content="1.Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
+<meta property="og:description" content="Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2017/08/18/599685005d5ee.png">
-<meta property="og:updated_time" content="2017-08-18T06:12:29.612Z">
+<meta property="og:updated_time" content="2017-08-18T06:35:21.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-session使用教程(一)：redis共享session">
-<meta name="twitter:description" content="1.Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
+<meta name="twitter:description" content="Spring session简介说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）">
 <meta name="twitter:image" content="https://i.loli.net/2017/08/18/599685005d5ee.png">
 
 
@@ -356,17 +356,16 @@
       
 
       
-        <h2 id="1-Spring-session简介"><a href="#1-Spring-session简介" class="headerlink" title="1.Spring session简介"></a>1.Spring session简介</h2><p>说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）</p>
+        <h2 id="Spring-session简介"><a href="#Spring-session简介" class="headerlink" title="Spring session简介"></a>Spring session简介</h2><p>说白了就是解决session共享问题，spring-session将web的session存到一个指定的位置，集群的所有web服务器在操作session的时候就去这个位置找。（我比较喜欢用最土的语言解释，不官方但是容易理解）</p>
 <a id="more"></a>
 <p>注意：本文只教你怎么使用spring-session-redis，不会深入探讨为什么这么实现，因为暂时我也没弄清他的源源码，但是照下面的做法你一定能跑起来。</p>
-<h2 id="2-maven在pom-xml中配置"><a href="#2-maven在pom-xml中配置" class="headerlink" title="2.maven在pom.xml中配置"></a>2.maven在pom.xml中配置</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!--spring-session--&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.session&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.2.1.RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
-<h2 id="3-创建RedisHttpSessionConfig"><a href="#3-创建RedisHttpSessionConfig" class="headerlink" title="3.创建RedisHttpSessionConfig"></a>3.创建RedisHttpSessionConfig</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba.config;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.jedis.JedisConnectionFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;</div><div class="line"></div><div class="line"><span class="meta">@EnableRedisHttpSession</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisHttpSessionConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">connectionFactory</span><span class="params">()</span> </span>&#123;</div><div class="line">        JedisConnectionFactory connection = <span class="keyword">new</span> JedisConnectionFactory();</div><div class="line">        connection.setHostName(<span class="string">"127.0.0.1"</span>);</div><div class="line">        connection.setPort(<span class="number">6379</span>);</div><div class="line">        <span class="keyword">return</span> connection;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="4-创建SpringSessionInitializer"><a href="#4-创建SpringSessionInitializer" class="headerlink" title="4.创建SpringSessionInitializer"></a>4.创建SpringSessionInitializer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba.config;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringSessionInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractHttpSessionApplicationInitializer</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="maven在pom-xml中配置"><a href="#maven在pom-xml中配置" class="headerlink" title="maven在pom.xml中配置"></a>maven在pom.xml中配置</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!--spring-session--&gt;</div><div class="line">&lt;dependency&gt;</div><div class="line">    &lt;groupId&gt;org.springframework.session&lt;/groupId&gt;</div><div class="line">    &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;</div><div class="line">    &lt;version&gt;1.2.1.RELEASE&lt;/version&gt;</div><div class="line">&lt;/dependency&gt;</div></pre></td></tr></table></figure>
+<h2 id="创建RedisHttpSessionConfig"><a href="#创建RedisHttpSessionConfig" class="headerlink" title="创建RedisHttpSessionConfig"></a>创建RedisHttpSessionConfig</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba.config;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.data.redis.connection.jedis.JedisConnectionFactory;</div><div class="line"><span class="keyword">import</span> org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;</div><div class="line"></div><div class="line"><span class="meta">@EnableRedisHttpSession</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisHttpSessionConfig</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> JedisConnectionFactory <span class="title">connectionFactory</span><span class="params">()</span> </span>&#123;</div><div class="line">        JedisConnectionFactory connection = <span class="keyword">new</span> JedisConnectionFactory();</div><div class="line">        connection.setHostName(<span class="string">"127.0.0.1"</span>);</div><div class="line">        connection.setPort(<span class="number">6379</span>);</div><div class="line">        <span class="keyword">return</span> connection;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="创建SpringSessionInitializer"><a href="#创建SpringSessionInitializer" class="headerlink" title="创建SpringSessionInitializer"></a>创建SpringSessionInitializer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba.config;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringSessionInitializer</span> <span class="keyword">extends</span> <span class="title">AbstractHttpSessionApplicationInitializer</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>接下来，把项目跑起来，在浏览器上访问一下，我们再在redis的控制台输入keys *，如果你能看到像下图的结果，恭喜你，配置成功！</p>
 <p><img src="https://i.loli.net/2017/08/18/599685005d5ee.png" alt=""></p>
 <blockquote>
-<p>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a></p>
-<p>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+<p>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
 </blockquote>
 
       
@@ -419,6 +418,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/spring-boot使用教程(一)：让程序跑起来/" rel="prev" title="spring-boot使用教程(一)：让程序跑起来">
+                spring-boot使用教程(一)：让程序跑起来 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -490,7 +493,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -572,7 +575,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Spring-session简介"><span class="nav-number">1.</span> <span class="nav-text">1.Spring session简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-maven在pom-xml中配置"><span class="nav-number">2.</span> <span class="nav-text">2.maven在pom.xml中配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-创建RedisHttpSessionConfig"><span class="nav-number">3.</span> <span class="nav-text">3.创建RedisHttpSessionConfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-创建SpringSessionInitializer"><span class="nav-number">4.</span> <span class="nav-text">4.创建SpringSessionInitializer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-session简介"><span class="nav-number">1.</span> <span class="nav-text">Spring session简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#maven在pom-xml中配置"><span class="nav-number">2.</span> <span class="nav-text">maven在pom.xml中配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建RedisHttpSessionConfig"><span class="nav-number">3.</span> <span class="nav-text">创建RedisHttpSessionConfig</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建SpringSessionInitializer"><span class="nav-number">4.</span> <span class="nav-text">创建SpringSessionInitializer</span></a></li></ol></div>
             
 
           </div>

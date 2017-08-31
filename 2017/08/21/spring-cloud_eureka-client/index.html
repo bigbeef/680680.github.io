@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/08/21/599a84165f51d.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/21/599a864a3f74e.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/21/599a86e0d25b7.png">
-<meta property="og:updated_time" content="2017-08-21T07:08:39.815Z">
+<meta property="og:updated_time" content="2017-08-31T09:22:39.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-cloud入门（二）：eureka-client（服务注册）">
 <meta name="twitter:description" content="前言上一节我们搭建起了服务注册中心，为各个服务提供者和消费者提供一个桥梁，这一节我们搭建一个服务提供者，注册到注册中心">
@@ -388,6 +388,9 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上一节我们搭建起了服务注册中心，为各个服务提供者和消费者提供一个桥梁，这一节我们搭建一个服务提供者，注册到注册中心</p>
 <a id="more"></a>
+<blockquote>
+<p>参考项目：<a href="https://github.com/bigbeef/cppba-spring-cloud" target="_blank" rel="external">https://github.com/bigbeef/cppba-spring-cloud</a><br>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+</blockquote>
 <h2 id="新建eureka-client模块"><a href="#新建eureka-client模块" class="headerlink" title="新建eureka-client模块"></a>新建eureka-client模块</h2><p>代码结构如下：<br><img src="https://i.loli.net/2017/08/21/599a84165f51d.png" alt=""></p>
 <h2 id="代码编写"><a href="#代码编写" class="headerlink" title="代码编写"></a>代码编写</h2><h3 id="cppba-spring-cloud-eureka-client-gt-pom-xml"><a href="#cppba-spring-cloud-eureka-client-gt-pom-xml" class="headerlink" title="cppba-spring-cloud-eureka-client &gt; pom.xml"></a>cppba-spring-cloud-eureka-client &gt; pom.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cppba-spring-cloud-eureka-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>$&#123;project.artifactId&#125;<span class="tag">&lt;/<span class="name">name</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.cppba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>cppba-spring-cloud<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="SpringCloudEurekaClientApplication-java"><a href="#SpringCloudEurekaClientApplication-java" class="headerlink" title="SpringCloudEurekaClientApplication.java"></a>SpringCloudEurekaClientApplication.java</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</div><div class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.cloud.netflix.eureka.EnableEurekaClient;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="meta">@EnableEurekaClient</span></div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SpringCloudEurekaClientApplication</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(SpringCloudEurekaClientApplication.class, args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;server.port&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String port;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/hi"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHi</span><span class="params">(@RequestParam String name)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"hi "</span> + name + <span class="string">",i am from port:"</span> + port;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -395,9 +398,6 @@
 <p>到此项目搭建完成</p>
 <h2 id="启动项目"><a href="#启动项目" class="headerlink" title="启动项目"></a>启动项目</h2><p>启动eureka-client之前，我们先启动上一节搭建的eureka-server，两个服务都启动好以后，我们访问注册中心，可以看到：<br><img src="https://i.loli.net/2017/08/21/599a864a3f74e.png" alt=""></p>
 <p>说明我们服务注册成功！访问一下<a href="http://127.0.0.1:8764/hi?name=hornet" target="_blank" rel="external">http://127.0.0.1:8764/hi?name=hornet</a><br><img src="https://i.loli.net/2017/08/21/599a86e0d25b7.png" alt=""><br>到此，eureka-client（服务发现）项目搭建成功。</p>
-<blockquote>
-<p>参考项目：<a href="https://github.com/bigbeef/cppba-spring-cloud" target="_blank" rel="external">https://github.com/bigbeef/cppba-spring-cloud</a><br>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
-</blockquote>
 
       
     </div>
@@ -449,6 +449,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/21/spring_advance_async_task/" rel="prev" title="spring进阶教程(二)：异步执行任务">
+                spring进阶教程(二)：异步执行任务 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -522,7 +526,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -533,7 +537,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -544,7 +548,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

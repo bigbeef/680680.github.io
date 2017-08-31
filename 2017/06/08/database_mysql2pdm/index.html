@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://i.loli.net/2017/08/20/59995b4137b43.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/20/59995b41a1b84.png">
 <meta property="og:image" content="https://i.loli.net/2017/08/20/59995b4497ff8.png">
-<meta property="og:updated_time" content="2017-08-21T01:45:30.631Z">
+<meta property="og:updated_time" content="2017-08-31T09:22:39.679Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql逆向生成pdm模型">
 <meta name="twitter:description" content="前言常用的建模工具有：PowerDesigner和ERWin，后者已快被淘汰，但前者依然活跃。相信大家都遇到过项目组已经运营很很久，但是竟然连一个ER图都没有，今天就讲解一下PowerDesigner连接mysql逆向生成pdm。PS：网络上各种老版本，各种文不对题，按照本文去做，10分钟即可搞定，就是这么简单。">
@@ -400,6 +400,9 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>常用的建模工具有：PowerDesigner和ERWin，后者已快被淘汰，但前者依然活跃。相信大家都遇到过项目组已经运营很很久，但是竟然连一个ER图都没有，今天就讲解一下PowerDesigner连接mysql逆向生成pdm。PS：网络上各种老版本，各种文不对题，按照本文去做，10分钟即可搞定，就是这么简单。<br><a id="more"></a></p>
+<blockquote>
+<p>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+</blockquote>
 <hr>
 <h2 id="下载Connector-ODBC"><a href="#下载Connector-ODBC" class="headerlink" title="下载Connector/ODBC"></a>下载Connector/ODBC</h2><p><a href="https://dev.mysql.com/downloads/connector/odbc/" target="_blank" rel="external">Connector/ODBC</a><br><img src="https://i.loli.net/2017/08/20/59995aa12b7a6.png" alt=""></p>
 <hr>
@@ -409,9 +412,6 @@
 <hr>
 <h2 id="打开powerdesigner"><a href="#打开powerdesigner" class="headerlink" title="打开powerdesigner"></a>打开powerdesigner</h2><p>创建一个model<br><img src="https://i.loli.net/2017/08/20/59995aa1c7c91.png" alt=""><br>选择物理模型，名字可以选择默认<br><img src="https://i.loli.net/2017/08/20/59995a9edee28.png" alt=""><br>点击database-&gt;connect<br><img src="https://i.loli.net/2017/08/20/59995a9edde2e.png" alt=""><br>选择我们刚才配置的odbc连接，点击<strong>确定</strong><br><img src="https://i.loli.net/2017/08/20/59995a9bed4f5.png" alt=""><br>点击file-&gt;reverse Engineer-&gt;Database<br><img src="https://i.loli.net/2017/08/20/59995b4123169.png" alt=""><br>名字可以随便取一个，后面可以自己改<br><img src="https://i.loli.net/2017/08/20/59995b4086991.png" alt=""><br>选择我们配置的数据库连接<br><img src="https://i.loli.net/2017/08/20/59995b40a3068.png" alt=""><br>选择我们要逆向生成的表<br><img src="https://i.loli.net/2017/08/20/59995b4137b43.png" alt=""><br>逆向生成中……<br><img src="https://i.loli.net/2017/08/20/59995b41a1b84.png" alt=""><br>生成成功<br><img src="https://i.loli.net/2017/08/20/59995b4497ff8.png" alt=""></p>
 <hr>
-<blockquote>
-<p>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
-</blockquote>
 
       
     </div>
@@ -540,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -551,7 +551,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -562,7 +562,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

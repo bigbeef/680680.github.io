@@ -102,7 +102,7 @@
 <meta property="og:description" content="前言ModelMapper是一个从对象到对象（object-to-object）的框架，能将Java Bean（Pojo）对象从一种表现形式转化为另一种表现形式。它采用“通过约定来配置”的方式，自动匹配不同的对象映射，同时具备满足某些特殊需求的高级功能。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.loli.net/2017/08/20/5999578000b62.png">
-<meta property="og:updated_time" content="2017-08-21T01:45:30.631Z">
+<meta property="og:updated_time" content="2017-08-31T09:22:39.694Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java善假于物（五）：ModelMapper实体间快速赋值">
 <meta name="twitter:description" content="前言ModelMapper是一个从对象到对象（object-to-object）的框架，能将Java Bean（Pojo）对象从一种表现形式转化为另一种表现形式。它采用“通过约定来配置”的方式，自动匹配不同的对象映射，同时具备满足某些特殊需求的高级功能。">
@@ -386,6 +386,9 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>ModelMapper是一个从对象到对象（object-to-object）的框架，能将Java Bean（Pojo）对象从一种表现形式转化为另一种表现形式。它采用“通过约定来配置”的方式，自动匹配不同的对象映射，同时具备满足某些特殊需求的高级功能。</p>
 <a id="more"></a>
+<blockquote>
+<p>参考地址：<a href="https://github.com/bigbeef/cppba-modelmapper" target="_blank" rel="external">https://github.com/bigbeef/cppba-modelmapper</a><br>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+</blockquote>
 <p>在实际开发中，我们遇到过这样的问题：<br>我们数据库有这样两张表User和City，映射的实体如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> String userName;</div><div class="line">    <span class="keyword">private</span> String password;</div><div class="line">    <span class="keyword">private</span> Integer gender;<span class="comment">//0-未知，1-男，2-女</span></div><div class="line">    <span class="keyword">private</span> Long cityId;</div><div class="line">    <span class="comment">//省去getter setter  tostring constructor</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">City</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> Long parentId;</div><div class="line">    <span class="comment">//省去getter setter  tostring constructor</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>我们的restful API有这样一个接口（/user/getInfo）,大家想一想我们的接口返回是什么？</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserVo</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Long id;</div><div class="line">    <span class="keyword">private</span> String UserName;</div><div class="line">    <span class="keyword">private</span> String cityName;</div><div class="line">    <span class="keyword">private</span> String gender;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -398,9 +401,6 @@
 <h2 id="编写测试"><a href="#编写测试" class="headerlink" title="编写测试"></a>编写测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="comment">//模拟数据库查询出来的数据</span></div><div class="line">        User user = <span class="keyword">new</span> User(<span class="number">1L</span>,<span class="string">"jack"</span>,<span class="string">"123456"</span>,<span class="number">1</span>,<span class="number">2L</span>);</div><div class="line">        City city = <span class="keyword">new</span> City(<span class="number">2L</span>,<span class="string">"重庆"</span>,<span class="number">0L</span>);</div><div class="line">        System.out.println(user.toString());</div><div class="line">        System.out.println(city.toString());</div><div class="line"></div><div class="line">        ModelMapper modelMapper = <span class="keyword">new</span> ModelMapper();</div><div class="line">        modelMapper.addMappings(UserVo.UserToUserVoMap);</div><div class="line">        modelMapper.addMappings(UserVo.CityToUserVoMap);</div><div class="line"></div><div class="line">        UserVo userVo =modelMapper.map(city,UserVo.class);</div><div class="line">        modelMapper.map(user,userVo);</div><div class="line">        System.out.println(userVo.toString());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://i.loli.net/2017/08/20/5999578000b62.png" alt=""></p>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><h3 id="如果user转userVO时，两个类属性名都相同，就没必要写自定义映射规则。"><a href="#如果user转userVO时，两个类属性名都相同，就没必要写自定义映射规则。" class="headerlink" title="如果user转userVO时，两个类属性名都相同，就没必要写自定义映射规则。"></a>如果user转userVO时，两个类属性名都相同，就没必要写自定义映射规则。</h3><p>如果VO属性很多，也不用像传统一样傻傻的一个一个赋值，因为属性名相同占多数，属性名不相同才需要自定义映射规则。</p>
-<blockquote>
-<p>参考地址：<a href="https://github.com/bigbeef/cppba-modelmapper" target="_blank" rel="external">https://github.com/bigbeef/cppba-modelmapper</a><br>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
-</blockquote>
 
       
     </div>
@@ -529,7 +529,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -540,7 +540,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -551,7 +551,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

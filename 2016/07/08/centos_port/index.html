@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="大黄蜂的独立博客">
 <meta property="og:description" content="前言在centos上部署服务的时候，经常遇到本地可以访问，但外网访问不了的情况，这是服务器断开没有对外开放，下面我们看一下centos6和centos7需要怎么配置">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-21T01:45:30.615Z">
+<meta property="og:updated_time" content="2017-08-31T09:22:39.677Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="centos端口开放">
 <meta name="twitter:description" content="前言在centos上部署服务的时候，经常遇到本地可以访问，但外网访问不了的情况，这是服务器断开没有对外开放，下面我们看一下centos6和centos7需要怎么配置">
@@ -383,12 +383,11 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在centos上部署服务的时候，经常遇到本地可以访问，但外网访问不了的情况，这是服务器断开没有对外开放，下面我们看一下centos6和centos7需要怎么配置<br><a id="more"></a></p>
+<blockquote>
+<p>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+</blockquote>
 <h2 id="centos6"><a href="#centos6" class="headerlink" title="centos6"></a>centos6</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>.打开<span class="number">80</span>端口：</div><div class="line">/sbin/iptables -I INPUT -p tcp --dport <span class="number">80</span> -j ACCEPT</div><div class="line"><span class="number">2</span>.保存设置：</div><div class="line">/etc/rc.d/init.d/iptables save</div><div class="line"><span class="number">3</span>.重启防火墙：</div><div class="line">service iptables restart</div><div class="line"><span class="number">4</span>.查看防火墙状态：</div><div class="line">/etc/init.d/iptables status</div></pre></td></tr></table></figure>
 <h2 id="centos7"><a href="#centos7" class="headerlink" title="centos7"></a>centos7</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>.<span class="comment">// 查看 firewalld</span></div><div class="line">systemctl status firewalld.service</div><div class="line"><span class="number">2</span>.<span class="comment">// 关闭 firewalld</span></div><div class="line">systemctl stop firewalld.service</div><div class="line"><span class="number">3</span>.<span class="comment">// 禁止开机启动 firewalld</span></div><div class="line">systemctl disable firewalld.service</div><div class="line"><span class="number">4</span>.<span class="comment">// 安装 iptables</span></div><div class="line">yum install iptables-services</div><div class="line"><span class="number">5</span>.<span class="comment">// 配置 iptables</span></div><div class="line">vi /etc/sysconfig/iptables</div><div class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport <span class="number">22</span> -j ACCEPT</div><div class="line"><span class="number">6</span>.<span class="comment">// 重启防火墙</span></div><div class="line">service iptables restart</div></pre></td></tr></table></figure>
-<blockquote>
-<p>github地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
-</blockquote>
-
       
     </div>
 
@@ -512,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -523,7 +522,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -534,7 +533,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="spring," />
+  <meta name="keywords" content="IntelliJ Idea," />
 
 
 
@@ -93,20 +93,20 @@
 
 
 
-<meta name="description" content="前言前几节我们用第三方框架quarz实现了定时任务，实际上spring3.1开始，spring已经内置了定时任务的支持，实现非常简单，下面我们一起看看怎么实现">
-<meta name="keywords" content="spring">
+<meta name="description" content="前言IntelliJ在2017.2以后部分产品会出现卡输入法的bug，目前发现版本有Idea 2017.2.1和PyCharm 2017.2.3,下面是解决方案，亲测可行。">
+<meta name="keywords" content="IntelliJ Idea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring进阶教程(三)：定时任务">
-<meta property="og:url" content="http://cppba.com/2017/08/22/spring_advance_schedule/index.html">
+<meta property="og:title" content="IntelliJ Idea教程(二)：卡输入法bug解决方法">
+<meta property="og:url" content="http://cppba.com/2017/09/27/idea_typewriting-bug/index.html">
 <meta property="og:site_name" content="大黄蜂的独立博客">
-<meta property="og:description" content="前言前几节我们用第三方框架quarz实现了定时任务，实际上spring3.1开始，spring已经内置了定时任务的支持，实现非常简单，下面我们一起看看怎么实现">
+<meta property="og:description" content="前言IntelliJ在2017.2以后部分产品会出现卡输入法的bug，目前发现版本有Idea 2017.2.1和PyCharm 2017.2.3,下面是解决方案，亲测可行。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://i.loli.net/2017/08/22/599c41d8eb4f4.png">
-<meta property="og:updated_time" content="2017-08-31T09:22:39.718Z">
+<meta property="og:image" content="https://i.loli.net/2017/09/27/59cb1f57e21bb.png">
+<meta property="og:updated_time" content="2017-09-27T03:49:24.037Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring进阶教程(三)：定时任务">
-<meta name="twitter:description" content="前言前几节我们用第三方框架quarz实现了定时任务，实际上spring3.1开始，spring已经内置了定时任务的支持，实现非常简单，下面我们一起看看怎么实现">
-<meta name="twitter:image" content="https://i.loli.net/2017/08/22/599c41d8eb4f4.png">
+<meta name="twitter:title" content="IntelliJ Idea教程(二)：卡输入法bug解决方法">
+<meta name="twitter:description" content="前言IntelliJ在2017.2以后部分产品会出现卡输入法的bug，目前发现版本有Idea 2017.2.1和PyCharm 2017.2.3,下面是解决方案，亲测可行。">
+<meta name="twitter:image" content="https://i.loli.net/2017/09/27/59cb1f57e21bb.png">
 
 
 
@@ -134,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://cppba.com/2017/08/22/spring_advance_schedule/"/>
+  <link rel="canonical" href="http://cppba.com/2017/09/27/idea_typewriting-bug/"/>
 
 
 
 
 
-  <title>spring进阶教程(三)：定时任务 | 大黄蜂的独立博客</title>
+  <title>IntelliJ Idea教程(二)：卡输入法bug解决方法 | 大黄蜂的独立博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -276,7 +276,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://cppba.com/2017/08/22/spring_advance_schedule/">
+    <link itemprop="mainEntityOfPage" href="http://cppba.com/2017/09/27/idea_typewriting-bug/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="大黄蜂">
@@ -293,7 +293,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spring进阶教程(三)：定时任务</h1>
+          <h1 class="post-title" itemprop="name headline">IntelliJ Idea教程(二)：卡输入法bug解决方法</h1>
         
 
         <div class="post-meta">
@@ -305,8 +305,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T22:31:00+08:00">
-                2017-08-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-27T11:31:00+08:00">
+                2017-09-27
               </time>
             
 
@@ -328,8 +328,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/spring/" itemprop="url" rel="index">
-                    <span itemprop="name">spring</span>
+                  <a href="/categories/IntelliJ-Idea/" itemprop="url" rel="index">
+                    <span itemprop="name">IntelliJ Idea</span>
                   </a>
                 </span>
 
@@ -347,8 +347,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2017/08/22/spring_advance_schedule/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/08/22/spring_advance_schedule/" itemprop="commentsCount"></span>
+                <a href="/2017/09/27/idea_typewriting-bug/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/09/27/idea_typewriting-bug/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -356,7 +356,7 @@
 
           
           
-             <span id="/2017/08/22/spring_advance_schedule/" class="leancloud_visitors" data-flag-title="spring进阶教程(三)：定时任务">
+             <span id="/2017/09/27/idea_typewriting-bug/" class="leancloud_visitors" data-flag-title="IntelliJ Idea教程(二)：卡输入法bug解决方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -384,17 +384,15 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前几节我们用第三方框架quarz实现了定时任务，实际上spring3.1开始，spring已经内置了定时任务的支持，实现非常简单，下面我们一起看看怎么实现</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>IntelliJ在2017.2以后部分产品会出现卡输入法的bug，目前发现版本有Idea 2017.2.1和PyCharm 2017.2.3,下面是解决方案，亲测可行。</p>
 <a id="more"></a>
 <blockquote>
-<p>参考项目：<a href="https://github.com/bigbeef/cppba-sample" target="_blank" rel="external">https://github.com/bigbeef/cppba-sample</a><br>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">http://blog.cppba.com</a></p>
+<p>开源地址：<a href="https://github.com/bigbeef" target="_blank" rel="external">https://github.com/bigbeef</a><br>个人博客：<a href="http://blog.cppba.com" target="_blank" rel="external">https://github.com/bigbeef</a></p>
 </blockquote>
-<h2 id="ScheduleApplication-java"><a href="#ScheduleApplication-java" class="headerlink" title="ScheduleApplication.java"></a>ScheduleApplication.java</h2><p>其中重点是@EnableScheduling注解，表示启动定时任务支持<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.EnableScheduling;</div><div class="line"></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="meta">@EnableScheduling</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScheduleApplication</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(ScheduleApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="SaySchedule-java"><a href="#SaySchedule-java" class="headerlink" title="SaySchedule.java"></a>SaySchedule.java</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.cppba.schedule;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="keyword">import</span> java.text.DateFormat;</div><div class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</div><div class="line"><span class="keyword">import</span> java.util.Date;</div><div class="line"></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SaySchedule</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> DateFormat df = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);</div><div class="line"></div><div class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"0/2 * * * * ?"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHi</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"hi!    time is :"</span> + df.format(<span class="keyword">new</span> Date()));</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Scheduled</span>(cron = <span class="string">"1/2 * * * * ?"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"hello! time is :"</span> + df.format(<span class="keyword">new</span> Date()));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>核心重点是@Scheduled注解，@Scheduled支持多种类型的计划任务：cron、fixDelay、fixRate,最流行的还是cron表达式，<br>在这里推荐一个cron表达式在线生成器:<a href="http://cron.qqe2.com/" target="_blank" rel="external">http://cron.qqe2.com/</a><br><img src="https://i.loli.net/2017/08/22/599c41d8eb4f4.png" alt=""><br>功能很强大，可以图形化配置cron表达式，也可以泛解析cron表达式的执行时间，特别方便</p>
-<h2 id="运行项目"><a href="#运行项目" class="headerlink" title="运行项目"></a>运行项目</h2><p>控制台打印如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">hi!    time is :2017-08-22 22:40:08</div><div class="line">hello! time is :2017-08-22 22:40:09</div><div class="line">hi!    time is :2017-08-22 22:40:10</div><div class="line">hello! time is :2017-08-22 22:40:11</div><div class="line">hi!    time is :2017-08-22 22:40:12</div><div class="line">hello! time is :2017-08-22 22:40:13</div><div class="line">hi!    time is :2017-08-22 22:40:14</div><div class="line">hello! time is :2017-08-22 22:40:15</div><div class="line">hi!    time is :2017-08-22 22:40:16</div><div class="line">hello! time is :2017-08-22 22:40:17</div><div class="line">hi!    time is :2017-08-22 22:40:18</div><div class="line">hello! time is :2017-08-22 22:40:19</div><div class="line">hi!    time is :2017-08-22 22:40:20</div><div class="line">hello! time is :2017-08-22 22:40:21</div><div class="line">hi!    time is :2017-08-22 22:40:22</div><div class="line">hello! time is :2017-08-22 22:40:23</div><div class="line">hi!    time is :2017-08-22 22:40:24</div></pre></td></tr></table></figure></p>
-<p>hello和hi交替执行，因为我们配置的cron表达式是：sayHi方法从0秒开始，每两秒执行一次；sayHello方法从1秒开始，每两秒执行一次。</p>
-<p>到此，我们的定时任务运行成功！</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>打开<a href="https://dl.bintray.com/jetbrains/intellij-jdk/" target="_blank" rel="external">https://dl.bintray.com/jetbrains/intellij-jdk/</a>,找到jbsdk8u152b845.3版本，<br>下载并解压</p>
+<h2 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h2><p>打开idea安装目录，会看到有个jre64的文件，我们把它重命名（备份），例如jre64_bak</p>
+<p>同时在目录中新建一个jre64文件夹，把刚刚解压的jdk放到这个目录<br><img src="https://i.loli.net/2017/09/27/59cb1f57e21bb.png" alt="1.png"></p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>最后打开idea，输入法恢复正常</p>
 
       
     </div>
@@ -424,7 +422,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/spring/" rel="tag"># spring</a>
+            <a href="/tags/IntelliJ-Idea/" rel="tag"># IntelliJ Idea</a>
           
         </div>
       
@@ -437,8 +435,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/21/spring_advance_async_task/" rel="next" title="spring进阶教程(二)：异步执行任务">
-                <i class="fa fa-chevron-left"></i> spring进阶教程(二)：异步执行任务
+              <a href="/2017/09/20/spring-cloud_config/" rel="next" title="spring-cloud入门（三）：spring-cloud-config（配置中心）">
+                <i class="fa fa-chevron-left"></i> spring-cloud入门（三）：spring-cloud-config（配置中心）
               </a>
             
           </div>
@@ -446,10 +444,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/30/spring-boot_tomcat2jetty/" rel="prev" title="spring-boot使用教程(三)：tomcat切换jetty">
-                spring-boot使用教程(三)：tomcat切换jetty <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -605,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ScheduleApplication-java"><span class="nav-number">2.</span> <span class="nav-text">ScheduleApplication.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SaySchedule-java"><span class="nav-number">3.</span> <span class="nav-text">SaySchedule.java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行项目"><span class="nav-number">4.</span> <span class="nav-text">运行项目</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">2.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换"><span class="nav-number">3.</span> <span class="nav-text">替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">4.</span> <span class="nav-text">启动</span></a></li></ol></div>
             
 
           </div>
